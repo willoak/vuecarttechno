@@ -5,27 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Techno</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app">{{produtos}}</div>
+    <div id="app">
+      <section class="produtos">
+        <div class="produto" v-for="produto in produtos" :key="produto.id">
+          <img :src="produto.img" :alt="produto.nome" :title="produto.nome" class="produto_img" />
+          <div class="produto_info">
+            <span class="produto_preco">
+              {{ produto.preco.toLocaleString('pt-bt', {style: 'currency', currency: 'BRL'}) }}
+            </span>
+            <h2 class="produto_titulo">{{produto.nome}}</h2>
+          </div>
+        </div>
+      </section>
+    </div>
     <script src="vue.min.js"></script>
-    <script>
-      const app = new Vue({
-        el: "#app",
-        data: {
-          produtos: [],
-        },
-        methods: {
-          fetchProdutos() {
-            fetch("/api/produtos.json")
-              .then((response) => response.json())
-              .then((dados) => (this.produtos = dados));
-          },
-        },
-        created() {
-          this.fetchProdutos();
-        },
-      });
-    </script>
+    <script src="app.js"></script>
   </body>
 </html>
