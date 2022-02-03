@@ -50,3 +50,93 @@ body {
 .produto_preco {
   color: rgb(102, 102, 102);
 }
+
+.modal::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.modal_container {
+  z-index: 1;
+  position: relative;
+  background: linear-gradient(to right, transparent 250px, #fff 250px);
+  display: grid;
+  align-items: end;
+  gap: 50px;
+  padding: 50px 50px 50px 0;
+  animation: fadeModal 0.5s forwards;
+}
+
+@keyframes fadeModal {
+  0% {
+    transform: translate3D(50px,0,0);
+  }
+  100% {
+    transform: translate3D(0,0,0);
+  }
+}
+  
+}
+
+.modal_img {
+  grid-column: 1;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.modal_img img {
+  max-width: 300px;
+  display: block;
+}
+.modal_dados {
+  max-width: 600px;
+  grid-column: 2;
+}
+
+.modal_titulo {
+  font-size: 3rem;
+  line-height: 1;
+  margin-bottom: 20px;
+}
+
+.modal_btn {
+  margin-top: 50px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 25px;
+  border: none;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.avaliacoes {
+  grid-column: 2;
+}
+.avaliacao {
+  border-bottom: 1px rgb(219, 219, 219) solid;
+  padding: 10px 0;
+}
+
+.modal_fechar {
+  border-radius: 50%;
+  border: 2px solid #000;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  font-size: 18px;
+  cursor: pointer;
+}

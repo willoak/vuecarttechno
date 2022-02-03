@@ -12,7 +12,30 @@
   </head>
   <body>
     <div id="app">
-      <section class="modal">{{produto}}</section>
+      <section class="modal" v-if="produtoUnico" @click="fecharModal">
+        <div class="modal_container">
+          <div class="modal_img">
+            <img :src="produtoUnico.img" :alt="produtoUnico.nome" />
+          </div>
+          <div class="modal_dados">
+            <button class="modal_fechar" @click="produtoUnico = false">x</button>
+            <h2 class="modal_titulo">{{produtoUnico.nome}}</h2>
+            <div class="modal_preco">{{produtoUnico.preco | numeroPreco}}</div>
+            <p>{{produtoUnico.descricao}}</p>
+            <button class="modal_btn">Adicionar item</button>
+          </div>
+
+          <div class="avaliacoes">
+            <h2 class="avaliacoes_subtitulo">Avaliações</h2>
+            <ul class="avaliacoes_lista">
+              <li class="avaliacao" v-for="avaliacao in produtoUnico.avaliacoes">
+                <div class="avaliacoes_nome">{{avaliacao.nome}} | {{avaliacao.estrelas}} estrelas</div>
+                <div class="avaliacoces_descricao">{{avaliacao.descricao}}</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
       <section class="produtos">
         <div class="produto" v-for="produto in produtos" :key="produto.id" @click="fetchProduto(produto.id)">

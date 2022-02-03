@@ -2,7 +2,7 @@ const app = new Vue({
   el: "#app",
   data: {
     produtos: [],
-    produto: false,
+    produtoUnico: false,
   },
   filters: {
     numeroPreco(valor) {
@@ -18,7 +18,10 @@ const app = new Vue({
     fetchProduto(id) {
       fetch(`/api/produtos/${id}/dados.json`)
         .then((r) => r.json())
-        .then((dados) => (this.produto = dados));
+        .then((dados) => (this.produtoUnico = dados));
+    },
+    fecharModal({ target, currentTarget }) {
+      if (target === currentTarget) this.produtoUnico = false;
     },
   },
   created() {
