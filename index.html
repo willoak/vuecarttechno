@@ -16,9 +16,7 @@
         <div class="produto" v-for="produto in produtos" :key="produto.id">
           <img :src="produto.img" :alt="produto.nome" :title="produto.nome" class="produto_img" />
           <div class="produto_info">
-            <span class="produto_preco">
-              {{ produto.preco.toLocaleString('pt-bt', {style: 'currency', currency: 'BRL'}) }}
-            </span>
+            <span class="produto_preco"> {{ produto.preco | numeroPreco }} </span>
             <h2 class="produto_titulo">{{produto.nome}}</h2>
           </div>
         </div>
