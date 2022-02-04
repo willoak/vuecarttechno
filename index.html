@@ -14,15 +14,20 @@
     <div id="app">
       <header class="header">
         <img class="logo" src="./assets/techno.svg" alt="techno" />
-        <div class="carrinho_menu">{{carrinhoTotal | numeroPreco}} | {{carrinho.length}} item(ns)</div>
+        <div class="carrinho_menu" @click="carrinhoAtivo = true">
+          {{carrinhoTotal | numeroPreco}} | {{carrinho.length}} item(ns)
+        </div>
       </header>
 
       <section class="produtos">
         <div class="produto" v-for="produto in produtos" :key="produto.id" @click="fetchProduto(produto.id)">
           <img :src="produto.img" :alt="produto.nome" :title="produto.nome" class="produto_img" />
           <div class="produto_info">
-            <span class="produto_preco"> {{ produto.preco | numeroPreco }} </span>
             <h2 class="produto_titulo">{{produto.nome}}</h2>
+            <span class="produto_preco">
+              {{ produto.preco | numeroPreco }}
+              <em>em até {{parcelas}}x {{ produto.preco / parcelas | numeroPreco }}</em>
+            </span>
           </div>
         </div>
       </section>
@@ -36,11 +41,13 @@
             <button class="modal_fechar" @click="produtoUnico = false, alerta = false">x</button>
             <div class="alerta" :class="{show: alerta}">Produto adicionado com sucesso!</div>
             <h2 class="modal_titulo">{{produtoUnico.nome}}</h2>
-            <div class="modal_preco">{{produtoUnico.preco | numeroPreco}}</div>
+            <div class="modal_preco">
+              {{produtoUnico.preco | numeroPreco}}
+              <em>em até {{parcelas}}x de {{produtoUnico.preco / parcelas | numeroPreco}}</em>
+            </div>
             <p>{{produtoUnico.descricao}}</p>
             <button v-if="produtoUnico.estoque > 0" class="modal_btn" @click="adicionarItem">Adicionar item</button>
             <button v-else class="modal_btn" disabled>Produto sem estoque</button>
-            {{produtoUnico.estoque}}
           </div>
 
           <div class="avaliacoes">
@@ -54,7 +61,27 @@
           </div>
         </div>
       </section>
+
+      <div class="carrinho_modal" :class="{ativo: carrinhoAtivo}" @click="clickForaCarrinho">
+        <div class="carrinho_container">
+          <button @click="carrinhoAtivo = false" class="carrinho_fechar">X</button>
+          <h2 class="carrinho_titulo">Carrinho</h2>
+          <div v-if="carrinho.length > 0">
+            <ul class="carrinho_lista">
+              <li v-for="(item, index) in carrinho" class="carrinho_item">
+                <p>{{item.nome}}</p>
+                <p>{{item.preco | numeroPreco}}</p>
+                <button class="carrinho_remover" @click="removerItem(index)">X</button>
+              </li>
+            </ul>
+            <p class="carrinho_total">{{carrinhoTotal | numeroPreco}}</p>
+            <button class="carrinho_finalizar">Finalizar Compra</button>
+          </div>
+          <p v-else>O carrinho está vazio</p>
+        </div>
+      </div>
     </div>
+    <!--#app-->
     <script src="vue.min.js"></script>
     <script src="app.js"></script>
   </body>
