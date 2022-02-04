@@ -4,6 +4,7 @@ const app = new Vue({
     produtos: [],
     produtoUnico: false,
     carrinho: [],
+    alerta: false,
   },
   filters: {
     numeroPreco(valor) {
@@ -33,7 +34,10 @@ const app = new Vue({
         .then((dados) => (this.produtoUnico = dados));
     },
     fecharModal({ target, currentTarget }) {
-      if (target === currentTarget) this.produtoUnico = false;
+      if (target === currentTarget) {
+        this.produtoUnico = false;
+        this.alerta = false;
+      }
     },
     adicionarItem() {
       this.produtoUnico.estoque--;
@@ -44,6 +48,7 @@ const app = new Vue({
         nome,
         preco,
       });
+      this.alerta = true;
     },
     removerItem(index) {
       this.carrinho.splice(index, 1);

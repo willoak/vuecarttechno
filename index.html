@@ -33,7 +33,8 @@
             <img :src="produtoUnico.img" :alt="produtoUnico.nome" />
           </div>
           <div class="modal_dados">
-            <button class="modal_fechar" @click="produtoUnico = false">x</button>
+            <button class="modal_fechar" @click="produtoUnico = false, alerta = false">x</button>
+            <div class="alerta" :class="{show: alerta}">Produto adicionado com sucesso!</div>
             <h2 class="modal_titulo">{{produtoUnico.nome}}</h2>
             <div class="modal_preco">{{produtoUnico.preco | numeroPreco}}</div>
             <p>{{produtoUnico.descricao}}</p>

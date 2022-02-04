@@ -170,3 +170,41 @@ body {
 :disabled {
   background: #ccc;
 }
+
+.alerta {
+  background: green;  
+  padding: 10px 25px;
+  color: #fff;  
+  position: relative;
+  display: none;
+  transition: 1s ease-in;
+  opacity: 0;
+}
+.alerta::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  background: green;
+  margin-left: 10px;
+  transform: rotate(45deg);
+}
+
+.alerta.show {
+  display: inline-block;
+  animation: show 0.5s forwards;
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    margin-bottom: 0px;
+  }
+  100% {
+    opacity: 1;
+    margin-bottom: 10px;
+  }
+}
+  
