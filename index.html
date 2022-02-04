@@ -12,6 +12,21 @@
   </head>
   <body>
     <div id="app">
+      <header class="header">
+        <img class="logo" src="./assets/techno.svg" alt="techno" />
+        <div class="carrinho_menu">{{carrinhoTotal | numeroPreco}} | {{carrinho.length}} item(ns)</div>
+      </header>
+
+      <section class="produtos">
+        <div class="produto" v-for="produto in produtos" :key="produto.id" @click="fetchProduto(produto.id)">
+          <img :src="produto.img" :alt="produto.nome" :title="produto.nome" class="produto_img" />
+          <div class="produto_info">
+            <span class="produto_preco"> {{ produto.preco | numeroPreco }} </span>
+            <h2 class="produto_titulo">{{produto.nome}}</h2>
+          </div>
+        </div>
+      </section>
+
       <section class="modal" v-if="produtoUnico" @click="fecharModal">
         <div class="modal_container">
           <div class="modal_img">
@@ -22,7 +37,9 @@
             <h2 class="modal_titulo">{{produtoUnico.nome}}</h2>
             <div class="modal_preco">{{produtoUnico.preco | numeroPreco}}</div>
             <p>{{produtoUnico.descricao}}</p>
-            <button class="modal_btn">Adicionar item</button>
+            <button v-if="produtoUnico.estoque > 0" class="modal_btn" @click="adicionarItem">Adicionar item</button>
+            <button v-else class="modal_btn" disabled>Produto sem estoque</button>
+            {{produtoUnico.estoque}}
           </div>
 
           <div class="avaliacoes">
@@ -33,16 +50,6 @@
                 <div class="avaliacoces_descricao">{{avaliacao.descricao}}</div>
               </li>
             </ul>
-          </div>
-        </div>
-      </section>
-
-      <section class="produtos">
-        <div class="produto" v-for="produto in produtos" :key="produto.id" @click="fetchProduto(produto.id)">
-          <img :src="produto.img" :alt="produto.nome" :title="produto.nome" class="produto_img" />
-          <div class="produto_info">
-            <span class="produto_preco"> {{ produto.preco | numeroPreco }} </span>
-            <h2 class="produto_titulo">{{produto.nome}}</h2>
           </div>
         </div>
       </section>
