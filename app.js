@@ -26,12 +26,12 @@ const app = new Vue({
   },
   methods: {
     fetchProdutos() {
-      fetch("/api/produtos.json")
+      fetch(`${this.locationApi()}/produtos.json`)
         .then((response) => response.json())
         .then((dados) => (this.produtos = dados));
     },
     fetchProduto(id) {
-      fetch(`/api/produtos/${id}/dados.json`)
+      fetch(`${this.locationApi()}/produtos/${id}/dados.json`)
         .then((r) => r.json())
         .then((dados) => (this.produtoUnico = dados));
     },
@@ -81,6 +81,14 @@ const app = new Vue({
       });
       // aqui eu estou subtraindo do estoque do produto que estou vendo no momento com a quantidade do mesmo que existe no carrinho
       this.produtoUnico.estoque -= totalItems.length;
+    },
+    locationApi() {
+      let urlLocation = window.location.href;
+      if (urlLocation.includes("willoak")) {
+        return "https://willoak.github.io/vuecarttechno/api";
+      } else {
+        return "http://127.0.0.1:5500/api";
+      }
     },
   },
   watch: {
