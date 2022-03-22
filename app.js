@@ -87,7 +87,7 @@ const app = new Vue({
       if (urlLocation.includes("willoak")) {
         return "https://willoak.github.io/vuecarttechno/api";
       } else {
-        return "http://127.0.0.1:5500/api";
+        return `${window.location.origin}/api`;
       }
     },
   },
